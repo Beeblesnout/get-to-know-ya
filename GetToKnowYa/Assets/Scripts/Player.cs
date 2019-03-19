@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PathFollow : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public Queue<Vector3> linePoints = new Queue<Vector3>();
+    public Queue<Vector2> linePoints = new Queue<Vector2>();
     public float distThreshold;
     public int maxPoints = 10;
     LineRenderer line;
-    Vector3 mousePos;
+    Vector2 mousePos;
     public bool isDrawing, isMoving;
 
     void Start() {
@@ -31,14 +31,14 @@ public class PathFollow : MonoBehaviour
         }
 
         line.positionCount = linePoints.Count;
-        line.SetPositions(linePoints.ToArray());
+        line.SetPositions(linePoints.Select(p => (Vector3)p).ToArray());
     }
 
     public float moveSpeed = 1, posThresh = .01f;
     void FixedUpdate() {
         if (Input.GetMouseButton(0) && !isDrawing)
         {
-            Vector2 localMouse = mousePos - transform.position;
+            Vector2 localMouse = mousePos - (Vector2)transform.position;
             transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(localMouse.y, localMouse.x) * Mathf.Rad2Deg, Vector3.forward);
 
             //shoot periodically
@@ -56,7 +56,7 @@ public class PathFollow : MonoBehaviour
             }
             else
             {
-                dir = (linePoints.ToList()[1] - transform.position).normalized;
+                dir = (linePoints.ToList()[1] - (Vector2)transform.position).normalized;
             }
             transform.position += dir * moveSpeed * Time.deltaTime;
         }
