@@ -25,12 +25,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4961762259822657886}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 4961762259960228704}
-  m_RootOrder: 0
+  m_Father: {fileID: 4961762261228121456}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1539535882699593621
 ParticleSystem:
@@ -666,7 +666,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 67.5}
+    m_Rotation: {x: 0, y: 0, z: -22.5}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -4767,7 +4767,7 @@ GameObject:
   - component: {fileID: 4961762259960228704}
   - component: {fileID: 4961762259960228705}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Direction Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4783,8 +4783,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.75, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_Children:
-  - {fileID: 4961762259822657887}
+  m_Children: []
   m_Father: {fileID: 4961762261228121456}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -4826,7 +4825,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 86583866b884fdb4fa5095401c7edfb1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4865,10 +4864,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4961762261228121420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.49, y: -2.22, z: -0.0625}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4961762259960228704}
+  - {fileID: 4961762259822657887}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4932,13 +4932,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ab6c9e1ef4c8d409558134ea96b731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distThreshold: 0.25
+  minDrawDist: 0.1
   maxPoints: 25
-  isDrawing: 0
-  isMoving: 0
-  drawnPoints: 0
   moveSpeed: 2.5
-  posThresh: 0.1
+  minMovePointDist: 0.1
+  bulletPrefab: {fileID: 0}
+  shotRate: 0
+  drawnPoints: 0
 --- !u!120 &4961762261228121421
 LineRenderer:
   m_ObjectHideFlags: 0
