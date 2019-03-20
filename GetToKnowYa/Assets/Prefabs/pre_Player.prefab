@@ -4844,8 +4844,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4961762261228121456}
-  - component: {fileID: 4961762261228121423}
   - component: {fileID: 4961762261228121422}
+  - component: {fileID: 4961762261228121423}
   - component: {fileID: 4961762261228121421}
   - component: {fileID: 3577533064680782148}
   - component: {fileID: 4897554401660945070}
@@ -4872,6 +4872,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4961762261228121422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961762261228121420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ab6c9e1ef4c8d409558134ea96b731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDrawDist: 0.2
+  maxPoints: 25
+  moveSpeed: 2.5
+  minMovePointDist: 0.1
+  bulletPrefab: {fileID: 0}
+  shotRate: 0.15
+  drawnPoints: 0
 --- !u!212 &4961762261228121423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4920,25 +4939,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4961762261228121422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4961762261228121420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3ab6c9e1ef4c8d409558134ea96b731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDrawDist: 0.1
-  maxPoints: 25
-  moveSpeed: 2.5
-  minMovePointDist: 0.1
-  bulletPrefab: {fileID: 0}
-  shotRate: 0
-  drawnPoints: 0
 --- !u!120 &4961762261228121421
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4956,7 +4956,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d2ab48915121b8a449835ca3a3d40d01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

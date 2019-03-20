@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     {
         if (Time.time - lastShotTime > shotRate)
         {
+            lastShotTime = Time.time;
             gunFireEffect.Emit(7);
         }
     }
@@ -61,13 +62,12 @@ public class Player : MonoBehaviour
         if (isDrawing && drawnPoints < maxPoints && drawnPoints > 0
          && Vector2.Distance(linePoints.Last(), mousePos) > minDrawDist)
         {
-            print("drawn point");
             linePoints.Enqueue(mousePos);
             drawnPoints++;
         }
 
         line.positionCount = linePoints.Count;
-        line.SetPositions(linePoints.Select(p => (Vector3)p).ToArray());
+        line.SetPositions(linePoints.Reverse().Select(p => (Vector3)p).ToArray());
     }
 
     void MoveOnLine()
