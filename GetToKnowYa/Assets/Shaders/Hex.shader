@@ -52,15 +52,18 @@
             {
                 fixed3 info = tex2D(_HexTex, i.uv);
 
+                info.g = atan2(0.5f - i.uv.x, 0.5f - i.uv.y)/3.141592653589f/2.0f + 0.5f;
+
                 fixed r = info.r;
                 fixed g = saturate((info.g + _Time.x * _Speed / 2) % .33) * 3;
+
                 // g = abs((g - .5) * 2);
                 fixed b = saturate((info.b + _Time.x * _Speed * 3) % 2);
                 b = abs((b - .5) * 2);
 
                 fixed4 end;
                 end.rgb = i.col.rgb;
-                end.a = r*b * i.col.a;
+                end.a = r*g*b * i.col.a;
                 return end;
             }
             ENDCG
