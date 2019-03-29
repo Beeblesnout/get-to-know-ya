@@ -52,7 +52,7 @@
             {
                 fixed3 info = tex2D(_HexTex, i.uv);
 
-                info.g = atan2(0.5f - i.uv.x, 0.5f - i.uv.y)/3.141592653589f/2.0f + 0.5f;
+                info.g = atan2(0.5f - i.uv.x, 0.5f - i.uv.y) / ((3.141592653589f / 2.0f) + 0.5f);
 
                 fixed r = info.r;
                 fixed g = saturate((info.g + _Time.x * _Speed / 2) % .33) * 3;
