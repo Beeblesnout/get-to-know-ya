@@ -63,7 +63,8 @@
 
                 fixed4 end;
                 end.rgb = i.col.rgb;
-                end.a = r*g*b * i.col.a;
+                end.a = r*b * i.col.a;
+                end.rgb *= 3;
                 return end;
             }
             ENDCG
