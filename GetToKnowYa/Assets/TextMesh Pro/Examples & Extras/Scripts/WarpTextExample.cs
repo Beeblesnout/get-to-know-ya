@@ -21,11 +21,10 @@ namespace TMPro.Examples
         }
 
 
-        void Start()
+        void OnEnable()
         {
             StartCoroutine(WarpText());
         }
-
 
         private AnimationCurve CopyAnimationCurve(AnimationCurve curve)
         {
@@ -53,13 +52,14 @@ namespace TMPro.Examples
             Matrix4x4 matrix;
 
             m_TextComponent.havePropertiesChanged = true; // Need to force the TextMeshPro Object to be updated.
-            CurveScale *= 10;
+            //CurveScale *= 10;
             float old_CurveScale = CurveScale;
             AnimationCurve old_curve = CopyAnimationCurve(VertexCurve);
 
             while (true)
             {
-                if (!m_TextComponent.havePropertiesChanged && old_CurveScale == CurveScale && old_curve.keys[1].value == VertexCurve.keys[1].value)
+                if (!m_TextComponent.havePropertiesChanged && old_CurveScale == CurveScale && 
+                    old_curve.keys[1].value == VertexCurve.keys[1].value)
                 {
                     yield return null;
                     continue;
@@ -68,7 +68,8 @@ namespace TMPro.Examples
                 old_CurveScale = CurveScale;
                 old_curve = CopyAnimationCurve(VertexCurve);
 
-                m_TextComponent.ForceMeshUpdate(); // Generate the mesh and populate the textInfo with data we can use and manipulate.
+                // Generate the mesh and populate the textInfo with data we can use and manipulate.
+                m_TextComponent.ForceMeshUpdate(); 
 
                 TMP_TextInfo textInfo = m_TextComponent.textInfo;
                 int characterCount = textInfo.characterCount;
@@ -97,8 +98,10 @@ namespace TMPro.Examples
                     vertices = textInfo.meshInfo[materialIndex].vertices;
 
                     // Compute the baseline mid point for each character
-                    Vector3 offsetToMidBaseline = new Vector2((vertices[vertexIndex + 0].x + vertices[vertexIndex + 2].x) / 2, textInfo.characterInfo[i].baseLine);
-                    //float offsetY = VertexCurve.Evaluate((float)i / characterCount + loopCount / 50f); // Random.Range(-0.25f, 0.25f);
+                    Vector3 offsetToMidBaseline = new Vector2((vertices[vertexIndex + 0].x + vertices[vertexIndex + 2].x)
+                        / 2, textInfo.characterInfo[i].baseLine);
+                    //float offsetY = VertexCurve.Evaluate((float)i / characterCount + loopCount / 50f); 
+                    // Random.Range(-0.25f, 0.25f);
 
                     // Apply offset to adjust our pivot point.
                     vertices[vertexIndex + 0] += -offsetToMidBaseline;
@@ -107,7 +110,8 @@ namespace TMPro.Examples
                     vertices[vertexIndex + 3] += -offsetToMidBaseline;
 
                     // Compute the angle of rotation for each character based on the animation curve
-                    float x0 = (offsetToMidBaseline.x - boundsMinX) / (boundsMaxX - boundsMinX); // Character's position relative to the bounds of the mesh.
+                    // Character's position relative to the bounds of the mesh.
+                    float x0 = (offsetToMidBaseline.x - boundsMinX) / (boundsMaxX - boundsMinX); 
                     float x1 = x0 + 0.0001f;
                     float y0 = VertexCurve.Evaluate(x0) * CurveScale;
                     float y1 = VertexCurve.Evaluate(x1) * CurveScale;
