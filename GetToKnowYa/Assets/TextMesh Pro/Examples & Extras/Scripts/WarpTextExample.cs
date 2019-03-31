@@ -20,7 +20,6 @@ namespace TMPro.Examples
             m_TextComponent = gameObject.GetComponent<TMP_Text>();
         }
 
-
         void OnEnable()
         {
             StartCoroutine(WarpText());
@@ -136,7 +135,6 @@ namespace TMPro.Examples
                     vertices[vertexIndex + 2] += offsetToMidBaseline;
                     vertices[vertexIndex + 3] += offsetToMidBaseline;
                 }
-
 
                 // Upload the mesh with the revised information
                 m_TextComponent.UpdateVertexData();
