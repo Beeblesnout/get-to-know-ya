@@ -4869,7 +4869,7 @@ Transform:
   m_Children:
   - {fileID: 4961762259960228704}
   - {fileID: 4961762259822657887}
-  - {fileID: 5677437360773340523}
+  - {fileID: 6494072099422517453}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5065,7 +5065,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!1001 &216901792911962601
+--- !u!1001 &1717925422405915727
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -5080,7 +5080,7 @@ PrefabInstance:
     - target: {fileID: 5472674544811686416, guid: 78ddb163c57c2224ea2d1592d2c431f0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5604967484425022594, guid: 78ddb163c57c2224ea2d1592d2c431f0,
         type: 3}
@@ -5139,9 +5139,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ddb163c57c2224ea2d1592d2c431f0, type: 3}
---- !u!4 &5677437360773340523 stripped
+--- !u!4 &6494072099422517453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5604967484425022594, guid: 78ddb163c57c2224ea2d1592d2c431f0,
     type: 3}
-  m_PrefabInstance: {fileID: 216901792911962601}
+  m_PrefabInstance: {fileID: 1717925422405915727}
   m_PrefabAsset: {fileID: 0}
