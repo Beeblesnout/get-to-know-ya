@@ -5,60 +5,91 @@ using System.Linq;
 
 public class Player : MonoBehaviour
 {
+    // -= Variables =-
+    [Header("Movement")]
     public Queue<Vector2> linePoints = new Queue<Vector2>();
-    public float distThreshold;
+    public float minDrawDist;
     public int maxPoints = 10;
+    public float moveSpeed = 1, minMovePointDist = .1f;
     LineRenderer line;
     Vector2 mousePos;
-    public bool isDrawing, isMoving;
+    bool isDrawing, isMoving;
 
+    [Header("Shooting")]
+    public GameObject bulletPrefab;
+    public float shotRate;
+    ParticleSystem gunFireEffect;
+    float lastShotTime;
+
+    // -= Basic Methods =-
     void Start() {
         line = GetComponent<LineRenderer>();
+        gunFireEffect = transform.GetChild(1).GetComponent<ParticleSystem>();
     }
 
     public int drawnPoints;
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
 
-        if (isDrawing) /*if so..then check*/ if (drawnPoints < maxPoints && drawnPoints > 0) /*if so..then check*/ 
-        if (Vector3.Distance(linePoints.Last(), mousePos) > distThreshold)
-        {
-            print("drawn point");
-            linePoints.Enqueue(mousePos);
-            drawnPoints++;
-        }
-
-        line.positionCount = linePoints.Count;
-        line.SetPositions(linePoints.Select(p => (Vector3)p).ToArray());
+        DrawLine();
     }
 
-    public float moveSpeed = 1, posThresh = .01f;
     void FixedUpdate() {
         if (Input.GetMouseButton(0) && !isDrawing)
         {
             Vector2 localMouse = mousePos - (Vector2)transform.position;
             transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(localMouse.y, localMouse.x) * Mathf.Rad2Deg, Vector3.forward);
 
-            //shoot periodically
+            DoShot();
         }
 
+        MoveOnLine();
+    }
+
+    // -= Helper Methods =-
+    void DoShot()
+    {
+        if (Time.time - lastShotTime > shotRate)
+        {
+            lastShotTime = Time.time;
+            gunFireEffect.Emit(7);
+        }
+    }
+    
+    void DrawLine()
+    {
+        if (isDrawing && drawnPoints < maxPoints && drawnPoints > 0
+         && Vector2.Distance(linePoints.Last(), mousePos) > minDrawDist)
+        {
+            linePoints.Enqueue(mousePos);
+            drawnPoints++;
+        }
+
+        line.positionCount = linePoints.Count;
+        line.SetPositions(linePoints.Reverse().Select(p => (Vector3)p).ToArray());
+    }
+
+    void MoveOnLine()
+    {
         if (linePoints.Count > 0)
         {
-            Vector3 dir = new Vector3();
+            Vector2 dir = new Vector2();
             isMoving = true;
-            if (linePoints.Count > 1) /*if so..then check*/
-            if (Vector3.Distance(transform.position, linePoints.ToList()[1]) < posThresh)
+            if (linePoints.Count > 1)
             {
-                if (linePoints.Count > 1)
-                    linePoints.Dequeue();
+                if (Vector2.Distance(transform.position, linePoints.ToList()[1]) < minMovePointDist)
+                {
+                    if (linePoints.Count > 1)
+                        linePoints.Dequeue();
+                }
+                else
+                {
+                    dir = (linePoints.ToList()[1] - (Vector2)transform.position).normalized;
+                }
             }
-            else
-            {
-                dir = (linePoints.ToList()[1] - (Vector2)transform.position).normalized;
-            }
-            transform.position += dir * moveSpeed * Time.deltaTime;
+            
+            transform.position += (Vector3)dir * moveSpeed * Time.deltaTime;
         }
     }
 

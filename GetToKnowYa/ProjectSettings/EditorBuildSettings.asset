@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Get-to-Know-Ya/Scenes/MainMenu.unity
     guid: f6882307184fe3f448086d33239311f8
-  - enabled: 1
-    path: Assets/Get-to-Know-Ya/Scenes/Question.unity
-    guid: 9620b8e6e59f86546a6cb18cc5bd96c6
   m_configObjects: {}
