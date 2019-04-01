@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    [Header("Enemy Type")]
     public GameObject enemy;
+
+    [Header("Spawned Enemies Limit")]
     public int enemyLimit;
+
+    [Header("Time between Enemy Spawns")]
     public float spawnTime;
-    public int player1Handicap;
-    public int player2Handicap;
+    
+    [Header("Enemy Spawn Position Range")]
     public float spawnPositionXMin;
     public float spawnPositionXMax;
     public float spawnPositionYMin;

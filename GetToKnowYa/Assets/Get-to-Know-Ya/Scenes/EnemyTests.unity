@@ -127,17 +127,17 @@ PrefabInstance:
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.8091354
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.238855
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
@@ -213,8 +213,6 @@ MonoBehaviour:
   enemy: {fileID: 2652904255777733871, guid: f783646285bc77546943ce898ac1a554, type: 3}
   enemyLimit: 10
   spawnTime: 0.5
-  player1Handicap: 0
-  player2Handicap: 0
   spawnPositionXMin: -8
   spawnPositionXMax: 8
   spawnPositionYMin: 0
@@ -248,17 +246,17 @@ PrefabInstance:
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9526224
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.114253
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4961762261228121456, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
