@@ -11,10 +11,13 @@ public class Enemy : MonoBehaviour
     private float moveDistance;
     public float speed;
 
+    Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Awake()
     {       
         players = GameObject.FindGameObjectsWithTag("Player");
+        rb = GetComponent<Rigidbody2D>();
         TargetPlayer();
     }
 
@@ -27,7 +30,9 @@ public class Enemy : MonoBehaviour
     private void ChasePlayer()
     {
         moveDistance = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPlayer.transform.position, moveDistance);
+        Vector2 direction = ((Vector2)targetPlayer.transform.position - rb.position).normalized;
+        if (rb.velocity.magnitude < speed)
+            rb.AddForce(direction, ForceMode2D.Force);
     }
 
     private void TargetPlayer()

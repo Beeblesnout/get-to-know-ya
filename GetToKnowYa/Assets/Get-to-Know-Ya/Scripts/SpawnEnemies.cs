@@ -22,7 +22,8 @@ public class SpawnEnemies : MonoBehaviour
     private float positionX;
     private float positionY;
     private float currentSpawnTime;
-    private GameObject[] existingEnemies;   
+    private GameObject[] existingEnemies;
+    private int spawnedEnemies;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class SpawnEnemies : MonoBehaviour
 
     void Spawn()
     {
-        existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (currentSpawnTime < 0)
         {
@@ -47,12 +48,13 @@ public class SpawnEnemies : MonoBehaviour
         
         currentSpawnTime -= Time.deltaTime;
 
-        if (existingEnemies.Length < enemyLimit && currentSpawnTime <= 0)
+        if (spawnedEnemies < enemyLimit && currentSpawnTime <= 0)
         {
             positionX = Random.Range(spawnPositionXMin, spawnPositionXMax);
             positionY = Random.Range(spawnPositionYMin, spawnPositionYMax);
 
             Instantiate(enemy, new Vector3(positionX, positionY), Quaternion.identity);
+            spawnedEnemies++;
         }
     }
 }

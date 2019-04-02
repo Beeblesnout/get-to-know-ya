@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public void OnStartPressed()
     {
         //Load the "Question" scene when the "start!" button is pressed
-        SceneManager.LoadScene("Question", LoadSceneMode.Single);
+        SceneManager.LoadScene("EnemyTests", LoadSceneMode.Single);
     }
 
     public void OnExitPressed()

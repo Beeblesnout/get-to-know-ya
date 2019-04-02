@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Boop!");
         if (other.collider.tag == "Enemy")
