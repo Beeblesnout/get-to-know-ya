@@ -9,20 +9,22 @@ public class QuestionSystem : MonoBehaviour
     string[] Choices1 = new string[] { "Hot Pepper", "Cats", "Dogs","Cake", "Ketchup" , "Sushi", "B-Movies"};
     string[] Choices2 = new string[] { "Peanuts", "Drag Queens", "Ska Music", "Baby Boomers", "Black Jelly Beans", "Sake"};
     string[] ChosenOption = new string[] { };
+    int choiceNum = 0;
+    //List<String> myList = new List<String>();
     public TMP_Text choice2Text;
     public TMP_Text choice1Text;
     float timeLeft = 5.0f;
     bool choiceDestroyed = true;
-   
-
+   Choice1 choice1;
+    
     void Awake()
     {
        
     }
     void Start()
     {
-        //choiceSelected = GetComponent<ChoiceSelected>();
-
+        choice1 = GetComponent<Choice1>();
+        //choice1.ChoiceSelected = 100;
     }
 
     // Update is called once per frame
@@ -43,7 +45,12 @@ public class QuestionSystem : MonoBehaviour
                 choiceDestroyed = false;
 
                 //needs if statment for detecting bullets 
+                if (choice1.ChoiceSelected==1) {
+                    string choice1 = Choices1[Random.Range(0, Choices1.Length)];
 
+                    ChosenOption[choiceNum] = (choice1);
+
+                }
 
             }
         }
