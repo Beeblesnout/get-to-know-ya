@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
         if (Time.time - lastShotTime > shotRate)
         {
             lastShotTime = Time.time;
+            Rigidbody2D rb2D = 
+                Instantiate(bulletPrefab, transform.position + (transform.right * .5f), transform.rotation)
+                    .GetComponent<Rigidbody2D>();
+            rb2D.AddForce(transform.right * 10, ForceMode2D.Impulse);
             gunFireEffect.Emit(7);
         }
     }

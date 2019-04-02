@@ -43,7 +43,7 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                o.uv = v.uv.yx;
                 o.col = v.col;
                 return o;
             }
@@ -60,11 +60,11 @@
                 // g = abs((g - .5) * 2);
                 fixed b = saturate((info.b + _Time.x * _Speed * 3) % 2);
                 b = abs((b - .5) * 2);
+                b = pow(b, 1.5) * 4;
 
                 fixed4 end;
                 end.rgb = i.col.rgb;
                 end.a = r*b * i.col.a;
-                end.rgb *= 3;
                 return end;
             }
             ENDCG
