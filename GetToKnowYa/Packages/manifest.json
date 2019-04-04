@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.popcron.console": "https://github.com/popcron/console.git",
+    "com.popcron.networking": "https://github.com/popcron/networking.git",
     "com.unity.ads": "2.3.1",
     "com.unity.analytics": "3.2.2",
     "com.unity.collab-proxy": "1.2.15",
@@ -37,5 +39,15 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.popcron.networking": {
+      "hash": "37115384a91e3e1396a008d61417b4790529ab23",
+      "revision": "HEAD"
+    },
+    "com.popcron.console": {
+      "hash": "83311705005fa7efbc698fea90bfdb680383dbb0",
+      "revision": "HEAD"
+    }
   }
 }

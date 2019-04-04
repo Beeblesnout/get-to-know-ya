@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Popcron.Console;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Console.Open = false;
     }
 
     // Update is called once per frame
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("EnemyTests", LoadSceneMode.Single);
     }
 
+    [Command("quit")]
     public void OnExitPressed()
     {
         //Quit the application when the exit button is pressed
