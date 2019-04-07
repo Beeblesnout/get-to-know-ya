@@ -7,15 +7,18 @@ using UnityEngine;
 public class MultiplayerManager : SingletonBase<MultiplayerManager> 
 {
     public static Action<Message> onMessage;
+    public static int maxConnections = 2;
 
     private void OnEnable()
     {
         Net.NetworkReceiveEvent += OnReceive;
+        Net.PlayerConnectedEvent += OnPlayerConnected;
     }
 
     private void OnDisable()
     {
         Net.NetworkReceiveEvent -= OnReceive;
+        Net.PlayerConnectedEvent -= OnPlayerConnected;
     }
 
     private void OnReceive(NetConnection connection, Message message)
@@ -32,9 +35,18 @@ public class MultiplayerManager : SingletonBase<MultiplayerManager>
             }
         }
     }
+
+    private void OnPlayerConnected(NetConnection connection) 
+    {
+        if (Net.Connections.Count >= maxConnections) 
+        {
+            Net.Disconnect();
+            Console.WriteLine("Server already has max connections. You've been booted.", LogType.Exception);
+        }
+    }
 }
 
-public enum NetMessageType
+public enum NMType
 {
-    PlayerAliveState, PlayerPosition, PlayerEulerAngles, PlayerShootState, PlayerGunID, PlayerTeam
+    PlayerAliveState, PlayerPosition, PlayerAngle, PlayerShootState
 }

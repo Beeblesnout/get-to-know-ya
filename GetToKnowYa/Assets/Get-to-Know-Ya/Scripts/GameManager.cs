@@ -4,7 +4,7 @@ using Popcron.Console;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonBase<GameManager>
 {
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public void OnStartPressed()
     {
         //Load the "Question" scene when the "start!" button is pressed
-        SceneManager.LoadScene("EnemyTests", LoadSceneMode.Single);
+        SceneManager.LoadScene("Shooter", LoadSceneMode.Single);
     }
 
     [Command("quit")]
