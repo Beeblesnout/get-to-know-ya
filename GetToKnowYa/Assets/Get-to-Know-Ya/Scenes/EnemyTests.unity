@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 2652904255777733871, guid: f783646285bc77546943ce898ac1a554, type: 3}
-  enemyLimit: 10
+  enemyLimit: 0
   spawnTime: 0.5
   spawnPositionXMin: -8
   spawnPositionXMax: 8
@@ -1346,6 +1346,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762259960228704, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762259960228704, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762259960228704, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762259960228704, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762259960228704, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762261228121422, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: fastVelocity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961762261228121422, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: slowVelocity
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}

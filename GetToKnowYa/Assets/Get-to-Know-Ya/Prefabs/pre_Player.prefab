@@ -4924,6 +4924,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4961762261228121456}
   - component: {fileID: 4961762261228121422}
+  - component: {fileID: 7703027977707759076}
+  - component: {fileID: 568983274593515427}
   - component: {fileID: 4961762261228121423}
   - component: {fileID: 4961762261228121421}
   - component: {fileID: 3577533064680782148}
@@ -4972,6 +4974,30 @@ MonoBehaviour:
     type: 3}
   shotRate: 0.15
   drawnPoints: 0
+--- !u!114 &7703027977707759076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961762261228121420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d05839b82e5bc4a931c2c4e812cdb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &568983274593515427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961762261228121420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0201eba7c9b6aea40a1d6148132bf72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &4961762261228121423
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -15,6 +15,12 @@ public class Player : MonoBehaviour
     Vector2 mousePos;
     bool isDrawing, isMoving;
 
+    //Moving and looking components and variables
+    private Move moveComponent;
+    private LookAt2D lookAt2DComponent;
+    public float fastVelocity;
+    public float slowVelocity;
+
     [Header("Shooting")]
     public GameObject bulletPrefab;
     public float shotRate;
@@ -22,9 +28,14 @@ public class Player : MonoBehaviour
     float lastShotTime;
 
     // -= Basic Methods =-
-    void Start() {
+    void Start()
+    {
         line = GetComponent<LineRenderer>();
+        
         gunFireEffect = transform.GetChild(1).GetComponent<ParticleSystem>();
+
+        moveComponent = gameObject.GetComponent<Move>();
+        lookAt2DComponent = gameObject.GetComponent<LookAt2D>();
     }
 
     public int drawnPoints;
@@ -32,10 +43,17 @@ public class Player : MonoBehaviour
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        //Allows the player to move towards the cursor at a reduced speed, or dash towards the cursor at a fast speed
+        moveComponent.ToFinger(fastVelocity, slowVelocity, false);
+
+        //Ensures the player looks at the mouse position
+        lookAt2DComponent.Cursor();
+
         DrawLine();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (Input.GetMouseButton(0) && !isDrawing)
         {
             Vector2 localMouse = mousePos - (Vector2)transform.position;
@@ -53,14 +71,14 @@ public class Player : MonoBehaviour
         if (Time.time - lastShotTime > shotRate)
         {
             lastShotTime = Time.time;
-            Rigidbody2D rb2D = 
+            Rigidbody2D rb2D =
                 Instantiate(bulletPrefab, transform.position + (transform.right * .5f), transform.rotation)
                     .GetComponent<Rigidbody2D>();
             rb2D.AddForce(transform.right * 2.5f, ForceMode2D.Impulse);
             gunFireEffect.Emit(7);
         }
     }
-    
+
     void DrawLine()
     {
         if (isDrawing && drawnPoints < maxPoints && drawnPoints > 0
@@ -92,12 +110,13 @@ public class Player : MonoBehaviour
                     dir = (linePoints.ToList()[1] - (Vector2)transform.position).normalized;
                 }
             }
-            
+
             transform.position += (Vector3)dir * moveSpeed * Time.deltaTime;
         }
     }
 
-    void OnMouseDown() {
+    void OnMouseDown()
+    {
         linePoints.Clear();
         line.positionCount = 0;
         linePoints.Enqueue(transform.position);
@@ -105,7 +124,8 @@ public class Player : MonoBehaviour
         isDrawing = true;
     }
 
-    void OnMouseUp() {
+    void OnMouseUp()
+    {
         isDrawing = false;
     }
 }
