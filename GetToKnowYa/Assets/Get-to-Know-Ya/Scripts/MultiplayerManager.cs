@@ -45,8 +45,3 @@ public class MultiplayerManager : SingletonBase<MultiplayerManager>
         }
     }
 }
-
-public enum NMType
-{
-    PlayerAliveState, PlayerPosition, PlayerAngle, PlayerShootState
-}

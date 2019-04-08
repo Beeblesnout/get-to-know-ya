@@ -11,15 +11,16 @@ public class User : NetUser
     public GameObject dummyPlayerPrefab;
 
     public static User Local { get; private set; }
-    public GameObject avatar { 
-        get { return avatar; }
+    private GameObject p_avatar;
+    public GameObject Avatar { 
+        get { return p_avatar; }
         private set { 
-            avatar = value;
-            avatarPlayer = avatar.GetComponent<Player>();
-            avatarPlayer.user = this;
+            p_avatar = value;
+            player = p_avatar.GetComponent<Player>();
+            player.user = this;
         }
     }
-    public Player avatarPlayer { get; private set; }
+    public Player player { get; private set; }
 
     public bool isAlive = false;
     private bool lastAlive;
@@ -49,6 +50,10 @@ public class User : NetUser
             Local = this;
             isAlive = true;
         }
+        // else if (IsServer)
+        // {
+        //     QuestionManager.RequestNewQuestion += GenerateNewQuestion;
+        // }
     }
 
     private async void OnPlayerConnected(NetConnection connection)
@@ -61,23 +66,27 @@ public class User : NetUser
         message.Write(isAlive);
         message.Send(connection);
 
-        if (avatar)
+        if (Avatar)
         {
             //send position
             message = new Message(NMType.PlayerPosition);
             message.Write(ConnectID);
-            message.Write(avatar.transform.position.x);
-            message.Write(avatar.transform.position.y);
+            message.Write(Avatar.transform.position.x);
+            message.Write(Avatar.transform.position.y);
             message.Send(connection);
             
             //send rotation
             message = new Message(NMType.PlayerAngle);
             message.Write(ConnectID);
-            message.Write(avatar.transform.eulerAngles.z);
+            message.Write(Avatar.transform.eulerAngles.z);
             message.Send(connection);
         }
     }
 
+    /// <summary>
+    /// Register information for a remote user, sent from the corrispondant client user.
+    /// </summary>
+    /// <param name="message">The sent message from the client user, for the remote user</param>
     private void OnMessage(Message message)
     {
         if (IsMine) return;
@@ -86,12 +95,22 @@ public class User : NetUser
         message.Rewind();
         switch (messageType)
         {
+            case NMType.ServerNewQuestion:
+                int qIndex = message.Read<int>();
+                int c1Index = message.Read<int>();
+                int c2Index = message.Read<int>();
+                QuestionManager.Instance.SetQuestionVars(
+                    qIndex, c1Index, c2Index
+                );
+                break;
+
             case NMType.PlayerAliveState:
                 if (message.Read<long>() == ConnectID)
                 {
                     isAlive = message.Read<bool>();
                 }
                 break;
+
             case NMType.PlayerPosition:
                 if (message.Read<long>() == ConnectID)
                 {
@@ -100,6 +119,7 @@ public class User : NetUser
                     avatarPosition = new Vector3(x, y, 0);
                 }
                 break;
+                
             case NMType.PlayerAngle:
                 if (message.Read<long>() == ConnectID)
                 {
@@ -107,12 +127,14 @@ public class User : NetUser
                     avatarAngle = a;
                 }
                 break;
+
             case NMType.PlayerShootState:
                 if (message.Read<long>() == ConnectID)
                 {
                     shooting = message.Read<bool>();
                 }
                 break;
+
             default:
                 break;
         }
@@ -122,6 +144,7 @@ public class User : NetUser
     {
         if (IsMine)
         {
+            // send alive state if it has changed
             if (isAlive != lastAlive)
             {
                 lastAlive = isAlive;
@@ -131,32 +154,32 @@ public class User : NetUser
                 message.Send();
             }
 
-            if (avatar)
+            if (Avatar)
             {
-                // sync position
-                if (avatar.transform.position != lastAvatarPosition)
+                // send position info if it has changed
+                if (Avatar.transform.position != lastAvatarPosition)
                 {
-                    lastAvatarPosition = avatar.transform.position;
+                    lastAvatarPosition = Avatar.transform.position;
                     Message message = new Message(NMType.PlayerPosition);
                     message.Write(lastAvatarPosition.x);
                     message.Write(lastAvatarPosition.y);
                     message.Send();
                 }
 
-                // sync rotation
-                if (avatar.transform.rotation.z != lastAvatarAngle)
+                // send rotation info if it has changed
+                if (Avatar.transform.rotation.z != lastAvatarAngle)
                 {
-                    lastAvatarAngle = avatar.transform.rotation.z;
+                    lastAvatarAngle = Avatar.transform.rotation.z;
                     Message message = new Message(NMType.PlayerAngle);
                     message.Write(ConnectID);
                     message.Write(lastAvatarAngle);
                     message.Send();
                 }
 
-                // sync shoot
-                if (avatarPlayer.isShooting != lastShooting)
+                // send shoot state info if it has changed
+                if (player.isShooting != lastShooting)
                 {
-                    lastShooting = avatarPlayer.isShooting;
+                    lastShooting = player.isShooting;
                     Message message = new Message(NMType.PlayerShootState);
                     message.Write(ConnectID);
                     message.Write(lastShooting);
@@ -166,39 +189,54 @@ public class User : NetUser
         }
         else
         {
-            if (avatar)
+            if (Avatar)
             {
                 // set position
-                avatar.transform.position = avatarPosition;
+                Avatar.transform.position = avatarPosition;
                 // set rotation
-                avatar.transform.rotation = Quaternion.AngleAxis(avatarAngle, Vector3.forward);
+                Avatar.transform.rotation = Quaternion.AngleAxis(avatarAngle, Vector3.forward);
                 // set shooting
-                avatarPlayer.isShooting = true;
+                player.isShooting = true;
             }
         }
 
-        if (avatar == null && isAlive)
+        if (Avatar == null && isAlive)
         {
+            // spawn avatar if alive and there is none
             if (IsMine)
             {
-                avatar = Instantiate(playerPrefab);
+                Avatar = Instantiate(playerPrefab);
                 // handle spawn location below
 
             }
             else
             {
-                avatar = Instantiate(dummyPlayerPrefab);
+                Avatar = Instantiate(dummyPlayerPrefab);
             }
         }
-        else if (avatar != null && !isAlive)
+        else if (Avatar != null && !isAlive)
         {
-            Destroy(avatar);
+            // destroy avatar if not alive and there is one
+            Destroy(Avatar);
         }
+    }
+
+    /// <summary>
+    /// Only used by the client. Sends the user's choice.
+    /// </summary>
+    public void SendChoice(int choiceSelection)
+    {
+        
+    }
+
+    public void FetchNewQuestion()
+    {
+        
     }
 
     private async void KillAvatar()
     {
         await Task.Delay(1000);
-        Destroy(avatar);
+        Destroy(Avatar);
     }
 }

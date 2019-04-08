@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    public bool isSpawning = false;
+    
     [Header("Enemy Type")]
     public GameObject enemy;
 
@@ -34,11 +36,12 @@ public class SpawnEnemies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Spawn();
+        if (isSpawning) Spawn();
     }
 
     void Spawn()
     {
+        if (spawnedEnemies >= enemyLimit) isSpawning = false;
         //existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (currentSpawnTime < 0)
