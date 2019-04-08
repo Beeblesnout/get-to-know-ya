@@ -99,9 +99,11 @@ public class User : NetUser
                 int qIndex = message.Read<int>();
                 int c1Index = message.Read<int>();
                 int c2Index = message.Read<int>();
-                QuestionManager.Instance.SetQuestionVars(
-                    qIndex, c1Index, c2Index
-                );
+                QuestionManager.Instance.SetQuestionVars(qIndex, c1Index, c2Index);
+                break;
+
+            case NMType.PlayerQuestionChoice:
+                
                 break;
 
             case NMType.PlayerAliveState:
@@ -226,7 +228,8 @@ public class User : NetUser
     /// </summary>
     public void SendChoice(int choiceSelection)
     {
-        
+        Message message = new Message(NMType.PlayerQuestionChoice);
+        message.Write(ConnectID);
     }
 
     public void FetchNewQuestion()
