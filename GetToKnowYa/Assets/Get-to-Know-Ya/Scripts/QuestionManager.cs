@@ -100,7 +100,7 @@ public class QuestionManager : SingletonBase<QuestionManager>
             case QSystemState.Resolving:
                 if (Net.IsClient)
                 {
-                    
+
                 }
                 break;
 
@@ -134,7 +134,7 @@ public class QuestionManager : SingletonBase<QuestionManager>
                     }
                 }
                 currentAskTime = Time.time;
-                if (currentAskTime - startAskTime < askTime) systemState = QSystemState.FetchingResults;
+                if (currentAskTime - startAskTime < askTime) systemState = QSystemState.Resolving;
                 break;
 
             case QSystemState.Resolving:
