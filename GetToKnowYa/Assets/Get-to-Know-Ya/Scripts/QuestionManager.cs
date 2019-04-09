@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 enum QSystemState
 {
-    Dormant, Asking, FetchingResults, Resolving
+    Dormant, Asking, Resolving
 }
 
 public class QuestionManager : SingletonBase<QuestionManager>
@@ -85,7 +85,7 @@ public class QuestionManager : SingletonBase<QuestionManager>
 
                     await Task.Delay((int)askTime * 1000);
 
-                    systemState = QSystemState.FetchingResults;
+                    systemState = QSystemState.Resolving;
                 }
                 else if (Net.IsClient)
                 {
@@ -98,6 +98,10 @@ public class QuestionManager : SingletonBase<QuestionManager>
                 break;
 
             case QSystemState.Resolving:
+                if (Net.IsClient)
+                {
+                    
+                }
                 break;
 
             case QSystemState.Dormant:

@@ -30,6 +30,7 @@ public class User : NetUser
     private float lastAvatarAngle;
     private bool shooting;
     private bool lastShooting;
+    private int choice;
 
     void OnEnable()
     {

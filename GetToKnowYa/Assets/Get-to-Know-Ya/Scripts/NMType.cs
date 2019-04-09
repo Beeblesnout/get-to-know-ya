@@ -1,4 +1,4 @@
 public enum NMType
 {
-    PlayerAliveState, PlayerPosition, PlayerAngle, PlayerShootState, ServerNewQuestion, PlayerQuestionChoice, QuestionResolveSignal
+    PlayerAliveState, PlayerPosition, PlayerAngle, PlayerShootState, ServerNewQuestion, PlayerQuestionChoice
 }
