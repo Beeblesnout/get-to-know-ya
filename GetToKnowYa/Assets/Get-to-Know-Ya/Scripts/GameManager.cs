@@ -17,15 +17,25 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void OnStartPressed()
+    public void LoadNextScene()
     {
         //Load the "Question" scene when the "start!" button is pressed
         SceneManager.LoadScene("EnemyTests", LoadSceneMode.Single);
     }
 
-    public void OnExitPressed()
+    public void QuitGame()
     {
         //Quit the application when the exit button is pressed
         Application.Quit();
+    }
+
+    public void HostGame()
+    {
+        Debug.Log("Host game selected!");
+    }
+
+    public void JoinGame()
+    {
+        Debug.Log("Join Game selected!");
     }
 }
