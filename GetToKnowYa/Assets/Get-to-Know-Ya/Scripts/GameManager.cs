@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Popcron.Console;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonBase<GameManager>
 {
     public GameObject pauseMenu;
     private bool gamePaused = false;
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Console.Open = false;
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene()
     {
         //Load the "Question" scene when the "start!" button is pressed
-        SceneManager.LoadScene("EnemyTests", LoadSceneMode.Single);
+        SceneManager.LoadScene("Shooter", LoadSceneMode.Single);
     }
 
     public void QuitGame()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,32 +7,28 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public float health;
+    public float maxHealth;
+    public OnDeath DeathEvent;
+    public delegate void OnDeath();
 
-    void Update()
+    void Awake() 
     {
-        if(health <= 0)
-        {
-            OnDeath();
-        }
+        DeathEvent += Kill;
+    }
+
+    void Start()
+    {
+        health = maxHealth;
     }
 
     public void Damage(float damage)
     {
-        Debug.Log("Ow!");
         health -= damage;
+        if (health <= 0) DeathEvent.Invoke();
     }
 
-    public void OnDeath()
+    public void Kill()
     {
         Destroy(gameObject);
     }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.tag == "Bullet")
-    //    {
-    //        Damage(collision.GetComponent<Bullet>().damage);
-    //        Destroy(collision.gameObject);
-    //    }
-    //}
 }

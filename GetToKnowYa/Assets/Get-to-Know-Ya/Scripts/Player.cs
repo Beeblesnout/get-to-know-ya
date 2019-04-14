@@ -6,6 +6,10 @@ using System.Linq;
 public class Player : MonoBehaviour
 {
     // -= Variables =-
+    [Header("Connections")]
+    public User user;
+    public Health health;
+
     [Header("Movement")]
     public Queue<Vector2> linePoints = new Queue<Vector2>();
     public float minDrawDist;
@@ -23,13 +27,14 @@ public class Player : MonoBehaviour
 
     [Header("Shooting")]
     public GameObject bulletPrefab;
+    public bool isShooting;
     public float shotRate;
     ParticleSystem gunFireEffect;
     float lastShotTime;
 
     // -= Basic Methods =-
-    void Start()
-    {
+    void Awake() {
+        health = GetComponent<Health>();
         line = GetComponent<LineRenderer>();
         
         gunFireEffect = transform.GetChild(1).GetComponent<ParticleSystem>();
@@ -41,42 +46,46 @@ public class Player : MonoBehaviour
     public int drawnPoints;
     void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //Allows the player to move towards the cursor at a reduced speed, or dash towards the cursor at a fast speed
-        moveComponent.ToFinger(fastVelocity, slowVelocity, false);
-
-        //Ensures the player looks at the mouse position
-        lookAt2DComponent.Cursor();
-
+        if (user.IsMine)
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
         DrawLine();
     }
 
-    void FixedUpdate()
-    {
-        if (Input.GetMouseButton(0) && !isDrawing)
+    void FixedUpdate() {
+        if (user.IsMine)
         {
-            Vector2 localMouse = mousePos - (Vector2)transform.position;
-            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(localMouse.y, localMouse.x) * Mathf.Rad2Deg, Vector3.forward);
+            if (Input.GetMouseButton(0) && !isDrawing)
+            {
+                Vector2 localMouse = mousePos - (Vector2)transform.position;
+                transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(localMouse.y, localMouse.x) * Mathf.Rad2Deg, Vector3.forward);
 
-            DoShot();
+                if (Time.time - lastShotTime > shotRate)
+                {
+                    isShooting = true;
+                }
+            }
+
+            MoveOnLine();
         }
 
-        MoveOnLine();
+        if (isShooting)
+        {
+            DoShot();
+            isShooting = false;
+        }
     }
 
     // -= Helper Methods =-
     void DoShot()
     {
-        if (Time.time - lastShotTime > shotRate)
-        {
-            lastShotTime = Time.time;
-            Rigidbody2D rb2D =
-                Instantiate(bulletPrefab, transform.position + (transform.right * .5f), transform.rotation)
-                    .GetComponent<Rigidbody2D>();
-            rb2D.AddForce(transform.right * 2.5f, ForceMode2D.Impulse);
-            gunFireEffect.Emit(7);
-        }
+        lastShotTime = Time.time;
+        Rigidbody2D rb2D = 
+            Instantiate(bulletPrefab, transform.position + (transform.right * .5f), transform.rotation)
+                .GetComponent<Rigidbody2D>();
+        rb2D.AddForce(transform.right * 2.5f, ForceMode2D.Impulse);
+        gunFireEffect.Emit(7);
     }
 
     void DrawLine()
