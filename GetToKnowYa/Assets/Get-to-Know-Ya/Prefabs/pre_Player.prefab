@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5721073464021517606}
   - component: {fileID: 1879192279607953428}
   - component: {fileID: 2105460139001014261}
+  - component: {fileID: 4377331171331271456}
   m_Layer: 0
   m_Name: pre_Player
   m_TagString: Player
@@ -59,6 +60,8 @@ MonoBehaviour:
     type: 3}
   isShooting: 1
   shotRate: 0.5
+  gunFireEffect: {fileID: 5445420030009701070}
+  enemySpawner: {fileID: 0}
 --- !u!114 &1294725863768335554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +165,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &4377331171331271456
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879192279607953431}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0.5
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1879192281007705636
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 1879192281415410693}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1879192281007705659}
   m_RootOrder: 0

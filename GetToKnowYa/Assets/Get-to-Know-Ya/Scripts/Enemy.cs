@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
     public float speed;
     public float drag;
+    
+    public float damage;
 
     Rigidbody2D rb;
 
@@ -41,5 +43,15 @@ public class Enemy : MonoBehaviour
     {
         targetPlayerIndex = Random.Range(0, players.Length);
         targetPlayer = players[targetPlayerIndex];
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        print("boink");
+        if (other.gameObject.tag == "Player")
+        {
+            Health h = other.gameObject.GetComponent<Health>();
+            h.Damage(damage);   
+        }
     }
 }

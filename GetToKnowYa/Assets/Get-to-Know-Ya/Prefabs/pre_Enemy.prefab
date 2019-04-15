@@ -135,6 +135,7 @@ MonoBehaviour:
   maxSpeed: 15
   speed: 5
   drag: 0.03
+  damage: 1
 --- !u!114 &2652904255777733875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,4 +149,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  maxHealth: 0
+  maxHealth: 1

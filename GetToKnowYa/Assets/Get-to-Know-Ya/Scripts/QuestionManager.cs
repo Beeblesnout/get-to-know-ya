@@ -49,6 +49,8 @@ public class QuestionManager : SingletonBase<QuestionManager>
     int selectedChoice, partnerChoice;
     public float askTime = 5f;
     float startAskTime;
+    public AudioSource audioSource;
+    public AudioClip correct, incorrect;
 
     public SpawnEnemies enemySpawner;
 
@@ -80,7 +82,6 @@ public class QuestionManager : SingletonBase<QuestionManager>
             case QSystemState.Resolving:
                 questionCanvas.gameObject.SetActive(true);
                 partnerChoice = Random.Range(1, 3);
-                // TODO: Give feedback to the player if they've matched or not
                 Results result = new Results(
                     allQuestions[questionIndex],
                     allChoices[choice1Index],
@@ -88,6 +89,7 @@ public class QuestionManager : SingletonBase<QuestionManager>
                     selectedChoice,
                     partnerChoice
                 );
+                audioSource.PlayOneShot(result.matches ? correct : incorrect);
                 allResults.Add(result);
                 enemySpawner.SpawnWave(result.matches ? 10 : 20);
                 systemState = QSystemState.Dormant;

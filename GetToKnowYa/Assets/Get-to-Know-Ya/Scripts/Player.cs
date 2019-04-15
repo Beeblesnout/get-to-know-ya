@@ -21,17 +21,13 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab;
     public bool isShooting;
     public float shotRate;
-    ParticleSystem gunFireEffect;
+    public ParticleSystem gunFireEffect;
     float lastShotTime;
     Transform target;
     public SpawnEnemies enemySpawner;
 
     // -= Basic Methods =-
     void Awake() {
-        health = GetComponent<Health>();
-        
-        gunFireEffect = transform.GetChild(1).GetComponent<ParticleSystem>();
-
         if (!dummy)
         {
             moveComponent = gameObject.GetComponent<Move>();
