@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Popcron.Console;
+using Popcron.Networking;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,18 +10,19 @@ public class GameManager : SingletonBase<GameManager>
     public GameObject pauseMenu;
     private bool gamePaused = false;
     
-    // Start is called before the first frame update
     void Start()
     {
         Console.Open = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) == true && SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            EscapeMenu();
+            if(Input.GetKeyDown(KeyCode.Escape) == true)
+            {
+                EscapeMenu();
+            }
         }
     }
 
@@ -36,15 +38,17 @@ public class GameManager : SingletonBase<GameManager>
         Application.Quit();
     }
 
-    public void HostGame()
-    {
-        Debug.Log("Host game selected!");
-    }
+    // public void HostGame()
+    // {
+    //     LoadNextScene();
+    //     CommandsNetworking.Host();
+    // }
 
-    public void JoinGame()
-    {
-        Debug.Log("Join Game selected!");
-    }
+    // public void JoinGame()
+    // {
+    //     LoadNextScene();
+    //     CommandsNetworking.Connect();
+    // }
 
     public void EscapeMenu()
     {

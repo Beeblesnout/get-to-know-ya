@@ -9,7 +9,9 @@ public class Enemy : MonoBehaviour
 
     private int targetPlayerIndex;
     private float moveDistance;
+    public float maxSpeed;
     public float speed;
+    public float drag;
 
     Rigidbody2D rb;
 
@@ -29,10 +31,10 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        moveDistance = speed * Time.deltaTime;
         Vector2 direction = ((Vector2)targetPlayer.transform.position - rb.position).normalized;
-        if (rb.velocity.magnitude < speed)
-            rb.AddForce(direction, ForceMode2D.Force);
+        if (rb.velocity.magnitude < maxSpeed)
+            rb.AddForce(direction * speed, ForceMode2D.Force);
+        rb.velocity *= 1-drag;
     }
 
     private void TargetPlayer()

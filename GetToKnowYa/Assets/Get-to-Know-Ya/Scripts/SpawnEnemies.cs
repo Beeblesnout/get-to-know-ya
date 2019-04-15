@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    public QuestionManager qMan;
     public bool isSpawning = false;
     
     [Header("Enemy Type")]
@@ -24,40 +25,47 @@ public class SpawnEnemies : MonoBehaviour
     private float positionX;
     private float positionY;
     private float currentSpawnTime;
-    private GameObject[] existingEnemies;
+    public List<GameObject> existingEnemies = new List<GameObject>();
     private int spawnedEnemies;
 
-    // Start is called before the first frame update
     void Start()
     {
-        currentSpawnTime = spawnTime;
+        SpawnWave(15);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isSpawning) Spawn();
+        existingEnemies.RemoveAll(e => e == null);
     }
 
     void Spawn()
     {
-        if (spawnedEnemies >= enemyLimit) isSpawning = false;
-        //existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-
+        currentSpawnTime -= Time.deltaTime;
         if (currentSpawnTime < 0)
         {
             currentSpawnTime = spawnTime;
-        }
-        
-        currentSpawnTime -= Time.deltaTime;
+            if (spawnedEnemies+1 < enemyLimit)
+            {
+                positionX = Random.Range(spawnPositionXMin, spawnPositionXMax);
+                positionY = Random.Range(spawnPositionYMin, spawnPositionYMax);
 
-        if (spawnedEnemies < enemyLimit && currentSpawnTime <= 0)
-        {
-            positionX = Random.Range(spawnPositionXMin, spawnPositionXMax);
-            positionY = Random.Range(spawnPositionYMin, spawnPositionYMax);
-
-            Instantiate(enemy, new Vector3(positionX, positionY), Quaternion.identity);
-            spawnedEnemies++;
+                existingEnemies.Add(Instantiate(enemy, new Vector3(positionX, positionY), Quaternion.identity));
+                spawnedEnemies++;
+            }
+            else
+            {
+                isSpawning = false;
+            }
         }
+    }
+
+    public void SpawnWave(int amount)
+    {
+        enemyLimit = amount;
+        spawnedEnemies = 0;
+        existingEnemies = new List<GameObject>();
+        currentSpawnTime = spawnTime;
+        isSpawning = true;
     }
 }

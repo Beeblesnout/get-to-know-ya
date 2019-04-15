@@ -9,7 +9,7 @@ using Popcron.Networking;
 using System.Threading;
 using System.Threading.Tasks;
 
-enum QSystemState
+public enum QSystemState
 {
     Dormant, Asking, Resolving
 }
@@ -23,19 +23,24 @@ public class QuestionManager : SingletonBase<QuestionManager>
     public static string[] allChoices = new string[] { 
         "Hot Pepper", "Cats", "Dogs","Cake", "Ketchup", 
         "Sushi", "B-Movies", "Peanuts", "Drag Queens", "Ska Music", 
-        "Baby Boomers", "Black Jelly Beans", "Sake"
+        "Baby Boomers", "Black Jelly Beans", "Sake", "The Great Depression", "The Letter J",
+        "Orange (fruit)", "Orange (colour)", "Orange (concept)", "The Earth", "Your Next-Door Neighbour"
     };
     public static List<Results> allResults = new List<Results>();
 
     // State Variables
-    QSystemState systemState, lastSystemState;
-    bool holdStateUpdate;
-    bool fetchedNewQuestion, fetchedPartnerResults;
+    public QSystemState systemState;
+    QSystemState lastSystemState;
     
     // Connected Components
     [Header("Connected Components")]
-    public TMP_Text questionText, choice1Text, choice2Text;
-    public RectTransform choice1Zone, choice2Zone;
+    public Canvas questionCanvas;
+    public TMP_Text questionText;
+    public TMP_Text choice1Text;
+    public TMP_Text choice2Text;
+    public RectTransform choice1Zone;
+    public RectTransform choice2Zone;
+    public Slider choiceTimeSlider;
     public Transform player;
 
     // Question System Variables
@@ -43,68 +48,53 @@ public class QuestionManager : SingletonBase<QuestionManager>
     int questionIndex, choice1Index, choice2Index;
     int selectedChoice, partnerChoice;
     public float askTime = 5f;
-    float currentAskTime, startAskTime;
+    float startAskTime;
 
-    async void Start()
+    public SpawnEnemies enemySpawner;
+
+    void Update()
     {
-        if (Net.IsServer)
+        if (lastSystemState != systemState)
         {
-
+            lastSystemState = systemState;
+            StateEnter();
         }
-        else if (Net.IsClient)
-        {
-            player = User.Local.Avatar.transform;
-        }
-
-        while (enabled)
-        {
-            if (lastSystemState != systemState)
-            {
-                lastSystemState = systemState;
-                holdStateUpdate = false;
-                await StateEnter();
-            }
-            StateUpdate();
-            await Task.Delay(25);
-        }
+        StateUpdate();
     }
 
-    public async Task StateEnter()
+    public void StateSet(QSystemState state)
+    {
+        systemState = state;
+    }
+
+    public void StateEnter()
     {
         switch (systemState)
         {
             case QSystemState.Asking:
-                if (Net.IsServer)
-                {
-                    GenerateNewQuestion();
-                    Message message = new Message(NMType.ServerNewQuestion);
-                    message.Write(questionIndex);
-                    message.Write(choice1Index);
-                    message.Write(choice2Index);
-                    message.Send();
-
-                    await Task.Delay((int)askTime * 1000);
-
-                    systemState = QSystemState.Resolving;
-                }
-                else if (Net.IsClient)
-                {
-                    while (!fetchedNewQuestion)
-                    {
-                        await Task.Delay(25);
-                    }
-                    startAskTime = Time.time;
-                }
+                questionCanvas.gameObject.SetActive(true);
+                GenerateNewQuestion();
+                startAskTime = Time.time;
                 break;
 
             case QSystemState.Resolving:
-                if (Net.IsClient)
-                {
-
-                }
+                questionCanvas.gameObject.SetActive(true);
+                partnerChoice = Random.Range(1, 3);
+                // TODO: Give feedback to the player if they've matched or not
+                Results result = new Results(
+                    allQuestions[questionIndex],
+                    allChoices[choice1Index],
+                    allChoices[choice2Index],
+                    selectedChoice,
+                    partnerChoice
+                );
+                allResults.Add(result);
+                enemySpawner.SpawnWave(result.matches ? 10 : 20);
+                systemState = QSystemState.Dormant;
                 break;
 
             case QSystemState.Dormant:
+                questionCanvas.gameObject.SetActive(false);
                 break;
 
             default:
@@ -117,30 +107,29 @@ public class QuestionManager : SingletonBase<QuestionManager>
         switch (systemState)
         {
             case QSystemState.Asking:
-                if (Net.IsClient)
+                Vector3 playerLoc = Camera.main.WorldToScreenPoint(player.transform.position);
+                if (RectTransformUtility.RectangleContainsScreenPoint(choice1Zone, playerLoc))
                 {
-                    Vector3 playerLoc = Camera.main.WorldToScreenPoint(User.Local.Avatar.transform.position);
-                    if (RectTransformUtility.RectangleContainsScreenPoint(choice1Zone, playerLoc))
-                    {
-                        selectedChoice = 1;
-                        choice1Zone.GetComponent<Selectable>().interactable = true;
-                        choice2Zone.GetComponent<Selectable>().interactable = false;
-                    }
-                    else if (RectTransformUtility.RectangleContainsScreenPoint(choice2Zone, playerLoc))
-                    {
-                        selectedChoice = 2;
-                        choice1Zone.GetComponent<Selectable>().interactable = false;
-                        choice2Zone.GetComponent<Selectable>().interactable = true;
-                    }
+                    selectedChoice = 1;
+                    choice1Zone.GetComponent<Selectable>().interactable = true;
+                    choice2Zone.GetComponent<Selectable>().interactable = false;
                 }
-                currentAskTime = Time.time;
-                if (currentAskTime - startAskTime < askTime) systemState = QSystemState.Resolving;
+                else if (RectTransformUtility.RectangleContainsScreenPoint(choice2Zone, playerLoc))
+                {
+                    selectedChoice = 2;
+                    choice1Zone.GetComponent<Selectable>().interactable = false;
+                    choice2Zone.GetComponent<Selectable>().interactable = true;
+                }
+                float askTimePerc = (Time.time - startAskTime) / askTime;
+                choiceTimeSlider.value = 1-askTimePerc;
+                if (askTimePerc > 1) systemState = QSystemState.Resolving;
                 break;
 
             case QSystemState.Resolving:
                 break;
 
             case QSystemState.Dormant:
+                if (!enemySpawner.isSpawning && enemySpawner.existingEnemies.Count == 0) systemState = QSystemState.Asking;
                 break;
 
             default:
@@ -159,7 +148,6 @@ public class QuestionManager : SingletonBase<QuestionManager>
         questionText.text = allQuestions[questionIndex];
         choice1Text.text = allChoices[choice1Index];
         choice2Text.text = allChoices[choice2Index];
-        fetchedNewQuestion = true;
     }
 
     public void SetQuestionVars(int newQuestionIndex, int newChoice1Index, int newChoice2Index)
@@ -171,7 +159,6 @@ public class QuestionManager : SingletonBase<QuestionManager>
         questionText.text = allQuestions[questionIndex];
         choice1Text.text = allChoices[choice1Index];
         choice2Text.text = allChoices[choice2Index];
-        fetchedNewQuestion = true;
     }
 }
 

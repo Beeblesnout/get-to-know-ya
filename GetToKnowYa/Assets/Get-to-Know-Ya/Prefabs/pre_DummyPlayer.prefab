@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1879192279607953431, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_Name
-      value: pre_DummyPlayer Variant
+      value: pre_DummyPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 1879192279607953451, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
@@ -67,6 +67,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 6779085010033223737}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: fastVelocity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: slowVelocity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: dummy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3249795025613087790, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
+    - {fileID: 1294725863768335554, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
+    - {fileID: 5104924898646959069, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
+--- !u!114 &6779085010033223737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256913208092798239}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1000519ea0b54fa290c1cd9a420db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,7 +9,7 @@ public class Move : MonoBehaviour
     private float clickTime = 0;
     private float clickDelay = 0.5f;
     private bool doubleClick = false;
-    private bool dashing = false;
+    public bool dashing = false;
     private Vector3 dashTarget;
 
     public void ToCursor(float velocity, float reducedInitialVelocity, bool fixedVelocity)

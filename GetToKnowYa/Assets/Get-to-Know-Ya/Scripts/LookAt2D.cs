@@ -24,4 +24,20 @@ public class LookAt2D : MonoBehaviour
         //Rotate player to face mouse coordinates
         transform.rotation = Quaternion.Euler(0, 0, angleInDegrees - 90);
     }
+
+    public void WorldPoint(Vector3 point)
+    {
+        float angleInRadians;
+        float angleInDegrees;
+
+        //Find the angle in radians
+        angleInRadians = Mathf.Atan2(point.y - transform.position.y,
+            point.x - transform.position.x);
+
+        //Convert angle from radians to degrees
+        angleInDegrees = (180 / Mathf.PI) * angleInRadians;
+
+        //Rotate player to face mouse coordinates
+        transform.rotation = Quaternion.Euler(0, 0, angleInDegrees - 90);
+    }
 }
