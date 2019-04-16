@@ -8,12 +8,11 @@ public class Health : MonoBehaviour
 {
     public float health;
     public float maxHealth;
-    public OnDeath DeathEvent;
-    public delegate void OnDeath();
+    public UnityEvent OnDeath;
 
     void Awake() 
     {
-        DeathEvent += Kill;
+        OnDeath.AddListener(Kill);
     }
 
     void Start()
@@ -24,7 +23,7 @@ public class Health : MonoBehaviour
     public void Damage(float damage)
     {
         health -= damage;
-        if (health <= 0) DeathEvent.Invoke();
+        if (health <= 0) OnDeath.Invoke();
     }
 
     public void Kill()

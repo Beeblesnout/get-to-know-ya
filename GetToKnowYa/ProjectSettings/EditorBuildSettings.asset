@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Get-to-Know-Ya/Scenes/Shooter.unity
     guid: 8c8b0a0ddbfa0964dad496870a5abbd9
+  - enabled: 1
+    path: Assets/Get-to-Know-Ya/Scenes/GameOver.unity
+    guid: c3f8c5b1deb968d4880f3cc3a1d2b725
   m_configObjects: {}

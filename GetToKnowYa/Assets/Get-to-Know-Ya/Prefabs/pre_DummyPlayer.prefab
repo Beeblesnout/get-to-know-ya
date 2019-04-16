@@ -87,10 +87,18 @@ PrefabInstance:
       propertyPath: dummy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: gunFireEffect
+      value: 
+      objectReference: {fileID: 6549209459151364049}
+    - target: {fileID: 1879192279607953429, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: shotRate
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3249795025613087790, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
-    - {fileID: 1294725863768335554, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
-    - {fileID: 5104924898646959069, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b4cfbe5abd312c04581e47940e5c8701, type: 3}
 --- !u!114 &6779085010033223737 stripped
 MonoBehaviour:
@@ -104,3 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d1000519ea0b54fa290c1cd9a420db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &6549209459151364049 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5445420030009701070, guid: b4cfbe5abd312c04581e47940e5c8701,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256913208092798239}
+  m_PrefabAsset: {fileID: 0}

@@ -189,4 +189,15 @@ public struct Results
         this.partnerAnswer = partnerAnswer;
         matches = string.Equals(chosenAnswer, partnerAnswer);
     }
+
+    public override string ToString()
+    {
+        return string.Format(
+            "{0} {1,-20} | {2,-20} | {3,-20}", 
+            matches ? "O" : "X", 
+            question, 
+            chosenAnswer == 1 ? choiceA : choiceB, 
+            partnerAnswer == 1 ? choiceA : choiceB
+        );
+    }
 }

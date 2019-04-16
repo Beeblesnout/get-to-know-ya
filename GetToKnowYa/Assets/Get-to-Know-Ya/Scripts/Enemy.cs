@@ -28,7 +28,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChasePlayer();
+        if (!targetPlayer) TargetPlayer();
+        else ChasePlayer();
     }
 
     private void ChasePlayer()
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
         targetPlayer = players[targetPlayerIndex];
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         print("boink");
         if (other.gameObject.tag == "Player")

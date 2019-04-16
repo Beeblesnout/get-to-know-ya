@@ -399,6 +399,41 @@ PrefabInstance:
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 569128273}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609932455}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721073464021517606, guid: b4cfbe5abd312c04581e47940e5c8701,
+        type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1879192279607953428, guid: b4cfbe5abd312c04581e47940e5c8701,
         type: 3}
       propertyPath: m_Color.r
@@ -1318,6 +1353,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538713335570000873, guid: c1c85a6097acc26409f211991b92410d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609932455}
+    - target: {fileID: 1538713335570000873, guid: c1c85a6097acc26409f211991b92410d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538713335570000873, guid: c1c85a6097acc26409f211991b92410d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538713334878937472, guid: c1c85a6097acc26409f211991b92410d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1609932455}
+    - target: {fileID: 1538713334878937472, guid: c1c85a6097acc26409f211991b92410d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EscapeMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1c85a6097acc26409f211991b92410d, type: 3}

@@ -28,11 +28,8 @@ public class Player : MonoBehaviour
 
     // -= Basic Methods =-
     void Awake() {
-        if (!dummy)
-        {
-            moveComponent = gameObject.GetComponent<Move>();
-            lookAt2DComponent = gameObject.GetComponent<LookAt2D>();
-        }
+        moveComponent = gameObject.GetComponent<Move>();
+        lookAt2DComponent = gameObject.GetComponent<LookAt2D>();
     }
 
     // void Start() {

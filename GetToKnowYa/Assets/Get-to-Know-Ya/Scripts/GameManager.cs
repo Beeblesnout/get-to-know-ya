@@ -26,10 +26,10 @@ public class GameManager : SingletonBase<GameManager>
         }
     }
 
-    public void LoadNextScene()
+    public void LoadScene(int buildIndex)
     {
-        //Load the "Question" scene when the "start!" button is pressed
-        SceneManager.LoadScene("Shooter", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(buildIndex, LoadSceneMode.Single);
     }
 
     public void QuitGame()
@@ -56,16 +56,13 @@ public class GameManager : SingletonBase<GameManager>
         {
             pauseMenu.SetActive(true);
             gamePaused = true;
+            Time.timeScale = 0.1f;
         }
         else if (pauseMenu != null && gamePaused == true)
         {
             pauseMenu.SetActive(false);
             gamePaused = false;
+            Time.timeScale = 1f;
         }
-    }
-
-    public void ReturnToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }
